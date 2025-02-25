@@ -1,0 +1,60 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public int LengthOfLL(ListNode head) {
+        if(head == null) return 0;
+        ListNode ptr = head;
+        int len = 0;
+        while(ptr!=null) {
+            len++;
+            ptr = ptr.next;
+        }
+        return len;
+    }
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        //nth node from the end is the size-n+1 th node from the beginning
+        //if node lies in the middle so we move till size-n th node
+        //calc size
+        int size =  LengthOfLL(head);
+        //calling helper
+        ListNode ptr = null;
+        if(n==1) {
+            // delete the end node
+            // if the end is the first node
+            ptr = head;
+            if(n==1 && size == 1) return null;
+            else{
+                while(ptr.next.next != null) ptr=ptr.next;
+                ptr.next = null;
+                return head;
+                }
+        }else if(n==size) {
+            //delete head
+            ptr = head;
+            head = head.next;
+            ptr.next = null;
+        }else {
+            //delete mid
+            int i = 0;
+            ptr = head; 
+            //pos = size-m+1
+            //do delete mid we go till i<pos-1 that is size-n+1-1
+            while(i<size-n-1) {
+                ptr = ptr.next;
+                i++;
+            }
+            ListNode temp = ptr.next.next;
+            ptr.next.next = null;
+            ptr.next = temp;
+        }
+        return head;
+    }
+}
