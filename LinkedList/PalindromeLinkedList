@@ -1,0 +1,61 @@
+
+class Solution {
+    public ListNode reverse(ListNode head) {
+        if(head == null || head.next == null) return head;
+        ListNode newHead = reverse(head.next);
+        ListNode front = head.next;
+        front.next = head;
+        head.next = null;
+        return newHead;
+    }
+    public boolean isPalindrome(ListNode head) {
+        if(head == null || head.next == null) return true;
+        ListNode slow = head, fast = head;
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode newHead = reverse(slow);
+        ListNode first = head, second = newHead;
+
+        while(second != null) {
+            if(first.val != second.val) {
+                newHead = reverse(slow);
+                return false;
+            }
+            first = first.next;
+            second = second.next;
+        }
+        newHead = reverse(slow);
+        return true;
+    }
+}
+
+
+
+
+//All other Approaches
+
+//Approach 2 using stack
+
+//1 -> 2 -> 3 -> 4 -> 5 -> null 
+
+//Stack <Integer> st = new Stack<>();
+//for(i over List) {
+    //push elements in the stack
+}
+//for(i over List) {
+//    if stack.peek() != node.data
+//        return false
+//    st.pop()
+//    move i over list
+//}
+//return true
+
+
+//Approach 3: using array
+
+//input all elements in an array
+//compare using 2 pointer approach L->R & R->L
+
+
