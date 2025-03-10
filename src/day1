@@ -1,0 +1,31 @@
+class Solution {
+    public int[] pivotArray(int[] nums, int pivot) {
+        ArrayList<Integer> list1 = new ArrayList<>();
+        ArrayList<Integer> list2 = new ArrayList<>();
+        int arr[] = new int[nums.length];
+        int count = 0;
+        for(int i: nums) {
+            if(i==pivot) {
+                count++;
+            }else if(i<pivot) {
+                list1.add(i);
+            }else{
+                list2.add(i);
+            }
+        }
+        int ptr_list2 = 0;
+        for(int i = 0; i < arr.length; i++) {
+            if(i<list1.size()) {
+                arr[i] = list1.get(i); 
+            }else if(count>0) {
+                arr[i] = pivot;
+                count--;
+            }else{
+                arr[i] = list2.get(ptr_list2++);
+            }
+        }
+        
+        return arr;
+        
+    }
+}
